@@ -3,7 +3,7 @@ import pandas as pd
 from airports import airport_data
 
 
-def getAirports(df: pd.DataFrame) -> pd.Index:
+def get_airports(df: pd.DataFrame) -> pd.Index:
     # Get unique airport IATA codes from the origin and destination airports.
     origin_airports = pd.Index(df["ORIGIN_AIRPORT"].unique())
     destination_airports = pd.Index(df["DESTINATION_AIRPORT"].unique())
@@ -12,7 +12,7 @@ def getAirports(df: pd.DataFrame) -> pd.Index:
     return airports
 
 
-def getAirportsLocation(airports: pd.Index) -> pd.DataFrame:
+def get_airports_location(airports: pd.Index) -> pd.DataFrame:
     # Fetch the details of airports using their IATA codes.
     airports = airport_data.get_multiple_airports(airports)
 

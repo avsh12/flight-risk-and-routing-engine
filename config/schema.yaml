@@ -31,7 +31,7 @@ source_schema:
     LATE_AIRCRAFT_DELAY: 'float64'
     WEATHER_DELAY: 'float64'
 
-silver_schema:
+bronze_schema:
   YEAR: 'int16'
   MONTH: 'int8'
   DAY: 'int8'

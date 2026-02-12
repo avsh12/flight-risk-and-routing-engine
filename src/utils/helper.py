@@ -1,0 +1,27 @@
+def num_api_calls(num_days, num_features, num_values):
+    return num_values * (num_days / 14) * (num_features / 10)
+
+
+# Actual limit is 600/min, 5000/hour and 10000/day
+def api_calls_per_min(
+    num_days,
+    num_features,
+    num_values,
+    max_api_calls_per_day=10000,
+    max_api_calls_per_hour=5000,
+    max_api_calls_per_min=600,
+):
+    num_api_calls_required = num_api_calls(num_values, num_features, num_values)
+    api_calls_per_min = 0
+
+    if num_api_calls_required >= max_api_calls_per_day:
+        api_calls_per_min = max_api_calls_per_day // (24 * 60)
+    elif num_api_calls_required >= max_api_calls_per_hour:
+        api_calls_per_min = max_api_calls_per_hour // 60
+    else:
+        api_calls_per_min = max_api_calls_per_min
+
+    print(f"API call rate: {api_calls_per_min} /min")
+    print(f"Number of API calls: {num_api_calls_required:.0f}")
+
+    return api_calls_per_min
