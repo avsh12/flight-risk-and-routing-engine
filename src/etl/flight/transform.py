@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from utils.loaders import get_config_resource_path, load_yaml
 from utils.logger import log_progress
 
 """Create features?
@@ -124,5 +125,10 @@ def create_new_features(df: pd.DataFrame) -> pd.DataFrame:
         df.columns.get_loc("SCH_ARI_HOUR"), "SCH_ARI_DAY", sch_arrival_datetime.dt.day
     )
     log_progress("Features created: SCH_DEP_DATE, SCH_ARI_DATE, SCH_ARI_HOUR\n")
+
+    config_path = get_config_resource_path("config")
+    config = load_yaml(config_path)
+
+    df = df[config["pipeline"]["load_flight_gold_columns"]]
 
     return df

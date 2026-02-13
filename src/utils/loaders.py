@@ -3,7 +3,7 @@ import yaml
 from utils.constants import CONFIG_DIR
 
 
-def getConfigResourcePath(file_name):
+def get_config_resource_path(file_name):
     config_path = CONFIG_DIR / f"{file_name}.yaml"
     if config_path.exists():
         return config_path

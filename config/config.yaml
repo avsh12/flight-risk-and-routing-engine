@@ -1,6 +1,11 @@
+# paths relative to data directory
 data:
-  raw_path: "data/flights.csv"
-  processed_path: '/data/gold/flight_weather.parquet'
+  raw_path: "reduced_data.csv"
+  processed_path: 'gold/flight_weather.parquet'
+  weather_bronze_data: 'bronze/weather_response.pickle'
+  weather_gold_data: 'gold/weather_data.parquet'
+  flight_weather: 'gold/flight_weather_combined.parquet'
+  flight_weather_categories: 'gold/flight_weather_categories.pickle'
   start_date: '2015-01-01'
   end_date: '2015-03-01'
 
@@ -14,6 +19,7 @@ pipeline:
     - 'YEAR'
     - 'MONTH'
     - 'DAY'
+    - 'DAY_OF_WEEK'
     - 'AIRLINE'
     - 'FLIGHT_NUMBER'
     - 'TAIL_NUMBER'
@@ -31,4 +37,19 @@ pipeline:
     - 'ARRIVAL_DELAY'
     - 'CANCELLED'
 
+  load_flight_gold_columns:
+    - 'MONTH'
+    - 'DAY'
+    - 'DAY_OF_WEEK'
+    - 'SCH_DEP_HOUR'
+    - 'SCH_DEP_MIN'
+    - 'SCH_ARI_DAY'
+    - 'SCH_ARI_HOUR'
+    - 'SCH_ARI_MIN'
+    - 'AIRLINE'
+    - 'FLIGHT_NUMBER'
+    - 'TAIL_NUMBER'
+    - 'ORIGIN_AIRPORT'
+    - 'DESTINATION_AIRPORT'
+    - 'ARRIVAL_DELAY'
 

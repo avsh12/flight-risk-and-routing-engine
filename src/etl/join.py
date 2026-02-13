@@ -1,3 +1,5 @@
+import gc
+
 import pandas as pd
 
 
