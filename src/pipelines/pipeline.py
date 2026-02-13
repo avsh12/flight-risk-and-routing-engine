@@ -1,13 +1,15 @@
 import pickle
+from pathlib import Path
 
 import pandas as pd
 from etl import airports, date_encoding, flight, index_categories, join, scale, weather
 from utils.constants import DATA_DIR
 from utils.loaders import get_config_resource_path, load_yaml
 from utils.logger import log_progress
+from utils.helper import flight_date_range
 
 
-def flight_etl(filepath: str = None) -> pd.DataFrame:
+def flight_etl(filepath: str | Path = None) -> pd.DataFrame:
     schema_path = get_config_resource_path("schema")
     schema = load_yaml(schema_path)
 
@@ -64,7 +66,7 @@ def weather_etl(
     return weather_data
 
 
-def pipeline() -> pd.DataFrame:
+def pipeline(filepath: str | Path = None) -> pd.DataFrame:
     features = """temperature_2m
     rain
     snowfall
@@ -75,14 +77,14 @@ def pipeline() -> pd.DataFrame:
     wind_gusts_10m""".split()
 
     # Flight ETL
-    flight_data = flight_etl()
+    flight_data = flight_etl(filepath)
     log_progress(f"Flight data shape: {flight_data.shape}")
 
     # Airports Location
     airport_locations = airport_etl(flight_data)
     log_progress(f"airport location data shape: {airport_locations.shape}")
 
-    start_date, end_date = weather.extract.get_date_range(flight_data)
+    start_date, end_date = flight_date_range.values()
     log_progress(f"Start date: {start_date}\nEnd date: {end_date}\n")
 
     # Weather ETL

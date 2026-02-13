@@ -39,10 +39,12 @@ pipeline:
 
   load_flight_gold_columns:
     - 'MONTH'
-    - 'DAY'
     - 'DAY_OF_WEEK'
+    - 'SCH_DEP_DATE'
+    - 'DAY'
     - 'SCH_DEP_HOUR'
     - 'SCH_DEP_MIN'
+    - 'SCH_ARI_DATE'
     - 'SCH_ARI_DAY'
     - 'SCH_ARI_HOUR'
     - 'SCH_ARI_MIN'

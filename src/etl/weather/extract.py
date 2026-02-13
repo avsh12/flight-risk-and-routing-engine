@@ -41,7 +41,12 @@ def get_num_data_splits(start_date, end_date, num_features, num_values):
     return num_splits
 
 
-def extract(airports, features, start_date="2015-01-01", end_date="2015-01-03"):
+def extract(
+    airports: pd.DataFrame,
+    features: list,
+    start_date="2015-01-01",
+    end_date="2015-01-03",
+):
     url = "https://archive-api.open-meteo.com/v1/archive"
 
     num_features = len(features)
@@ -76,8 +81,8 @@ def extract(airports, features, start_date="2015-01-01", end_date="2015-01-03"):
 
             responses.extend(response)
 
-        except:
-            error = f"Error occured in block {ix}"
+        except Exception as e:
+            error = f"Error occured in block {ix}: {e}"
             logs.append((ix, error))
             print(error)
 
